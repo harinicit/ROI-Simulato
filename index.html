@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoicing ROI Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Invoicing ROI Simulator</h1>
+            <p>Calculate Your Savings with Automation</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <h2>Business Metrics</h2>
+                <div class="input-group">
+                    <label>Monthly Invoice Volume</label>
+                    <input type="number" id="monthlyVolume" value="2000">
+                </div>
+                <div class="input-group">
+                    <label>Average AP Staff (FTE)</label>
+                    <input type="number" id="apStaff" value="3">
+                </div>
+                <div class="input-group">
+                    <label>Hourly Wage (Average)</label>
+                    <input type="number" id="hourlyWage" value="30">
+                </div>
+                <div class="input-group">
+                    <label>Average Hours per Invoice</label>
+                    <input type="number" step="0.01" id="avgHoursPerInvoice" value="0.17">
+                </div>
+                <div class="input-group">
+                    <label>Manual Error Rate (%)</label>
+                    <input type="number" step="0.01" id="manualErrorRate" value="0.5">
+                </div>
+                <div class="input-group">
+                    <label>Average Cost per Error</label>
+                    <input type="number" id="errorCost" value="100">
+                </div>
+                <div class="input-group">
+                    <label>Time Horizon (months)</label>
+                    <input type="number" id="timeHorizon" value="36">
+                </div>
+                <div class="input-group">
+                    <label>One-Time Implementation Cost</label>
+                    <input type="number" id="implementationCost" value="50000">
+                </div>
+                <button onclick="calculateROI()">Calculate</button>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="right-panel">
+                <h2>ROI Simulation Results</h2>
+                <div class="results-grid">
+                    <div class="result-card green">
+                        <span class="icon" data-feather="dollar-sign"></span>
+                        <h3>Monthly Savings</h3>
+                        <p id="monthlySavings">$0</p>
+                    </div>
+                    <div class="result-card blue">
+                        <span class="icon" data-feather="clock"></span>
+                        <h3>Payback Period</h3>
+                        <p id="paybackPeriod">0 Months</p>
+                    </div>
+                    <div class="result-card purple">
+                        <span class="icon" data-feather="percent"></span>
+                        <h3>Total ROI</h3>
+                        <p id="roiPercentage">0%</p>
+                    </div>
+                    <div class="result-card teal">
+                        <span class="icon" data-feather="trending-up"></span>
+                        <h3>Net Savings</h3>
+                        <p id="netSavings">$0</p>
+                    </div>
+                </div>
+
+                <div class="scenarios">
+                    <h3>Saved Scenarios</h3>
+                    <p>No scenarios saved yet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace()
+    </script>
+</body>
+</html>
