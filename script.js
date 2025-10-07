@@ -1,3 +1,5 @@
+let savedScenarios = [];
+
 function calculateROI() {
     const monthlyVolume = parseFloat(document.getElementById("monthlyVolume").value) || 0;
     const hourlyWage = parseFloat(document.getElementById("hourlyWage").value) || 0;
@@ -32,4 +34,46 @@ function calculateROI() {
     document.getElementById("paybackPeriod").innerText = isFinite(paybackPeriodMonths) ? paybackPeriodMonths.toFixed(2) + " Months" : "∞";
     document.getElementById("netSavings").innerText = "$" + netSavings.toFixed(2);
     document.getElementById("roiPercentage").innerText = roiPercentage.toFixed(2) + "%";
+
+    saveScenario({
+        monthlyVolume,
+        hourlyWage,
+        avgHoursPerInvoice,
+        manualErrorRate,
+        errorCost,
+        timeHorizon,
+        implementationCost,
+        monthlySavings: monthlySavings.toFixed(2),
+        paybackPeriod: isFinite(paybackPeriodMonths) ? paybackPeriodMonths.toFixed(2) + " Months" : "∞",
+        netSavings: netSavings.toFixed(2),
+        roiPercentage: roiPercentage.toFixed(2) + "%"
+    });
+}
+
+function saveScenario(scenario) {
+    savedScenarios.push(scenario);
+    updateSavedScenarios();
+}
+
+function updateSavedScenarios() {
+    const scenariosDiv = document.querySelector(".scenarios");
+    scenariosDiv.innerHTML = "<h3>Saved Scenarios</h3>";
+
+    if (savedScenarios.length === 0) {
+        scenariosDiv.innerHTML += "<p>No scenarios saved yet.</p>";
+        return;
+    }
+
+    const list = document.createElement("ul");
+    savedScenarios.forEach((sc, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <strong>Scenario ${index + 1}</strong>:
+            Monthly Volume: ${sc.monthlyVolume}, Hourly Wage: ${sc.hourlyWage}, Avg Hours/Invoice: ${sc.avgHoursPerInvoice}, 
+            Error Rate: ${sc.manualErrorRate}%, Error Cost: ${sc.errorCost}, Time Horizon: ${sc.timeHorizon}, Implementation Cost: ${sc.implementationCost}, 
+            <br>Monthly Savings: $${sc.monthlySavings}, Payback Period: ${sc.paybackPeriod}, Net Savings: $${sc.netSavings}, ROI: ${sc.roiPercentage}
+        `;
+        list.appendChild(li);
+    });
+    scenariosDiv.appendChild(list);
 }
