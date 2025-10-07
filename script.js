@@ -46,7 +46,7 @@ function calculateROI() {
         monthlySavings: monthlySavings.toFixed(2),
         paybackPeriod: isFinite(paybackPeriodMonths) ? paybackPeriodMonths.toFixed(2) + " Months" : "∞",
         netSavings: netSavings.toFixed(2),
-        roiPercentage: roiPercentage.toFixed(2) + "%"
+        roiPercentage: roiPercentage.toFixed(2)
     });
 }
 
@@ -56,24 +56,30 @@ function saveScenario(scenario) {
 }
 
 function updateSavedScenarios() {
-    const scenariosDiv = document.querySelector(".scenarios");
-    scenariosDiv.innerHTML = "<h3>Saved Scenarios</h3>";
+    const tbody = document.querySelector("#scenariosTable tbody");
+    tbody.innerHTML = "";
 
     if (savedScenarios.length === 0) {
-        scenariosDiv.innerHTML += "<p>No scenarios saved yet.</p>";
+        tbody.innerHTML = "<tr><td colspan='12'>No scenarios saved yet.</td></tr>";
         return;
     }
 
-    const list = document.createElement("ul");
     savedScenarios.forEach((sc, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-            <strong>Scenario ${index + 1}</strong>:
-            Monthly Volume: ${sc.monthlyVolume}, Hourly Wage: ${sc.hourlyWage}, Avg Hours/Invoice: ${sc.avgHoursPerInvoice}, 
-            Error Rate: ${sc.manualErrorRate}%, Error Cost: ${sc.errorCost}, Time Horizon: ${sc.timeHorizon}, Implementation Cost: ${sc.implementationCost}, 
-            <br>Monthly Savings: $${sc.monthlySavings}, Payback Period: ${sc.paybackPeriod}, Net Savings: $${sc.netSavings}, ROI: ${sc.roiPercentage}
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${sc.monthlyVolume}</td>
+            <td>${sc.hourlyWage}</td>
+            <td>${sc.avgHoursPerInvoice}</td>
+            <td>${sc.manualErrorRate}</td>
+            <td>${sc.errorCost}</td>
+            <td>${sc.timeHorizon}</td>
+            <td>${sc.implementationCost}</td>
+            <td>$${sc.monthlySavings}</td>
+            <td>${sc.paybackPeriod}</td>
+            <td>$${sc.netSavings}</td>
+            <td>${sc.roiPercentage}%</td>
         `;
-        list.appendChild(li);
+        tbody.appendChild(row);
     });
-    scenariosDiv.appendChild(list);
 }
